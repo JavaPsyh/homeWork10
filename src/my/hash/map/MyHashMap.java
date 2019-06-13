@@ -1,5 +1,6 @@
 package my.hash.map;
 
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class MyHashMap<K, V> {
@@ -78,7 +79,7 @@ public class MyHashMap<K, V> {
         int indexKey = newIndex(key);
         V result = null;
         if (arrayOfNodes[indexKey] == null) {
-            System.out.println("Not values with key: " + key);
+            throw new NoSuchElementException("Not values with key: " + key);
         } else {
             temp = arrayOfNodes[indexKey];
             if (temp.nextNode == null) {
@@ -93,7 +94,7 @@ public class MyHashMap<K, V> {
                     if (temp.nextNode == null && key.equals(temp.key)) {
                         result = temp.value;
                     } else {
-                        System.out.println("Not values with key: " + key);
+                        throw new NoSuchElementException("Not values with key: " + key);
                     }
                 }
             }
