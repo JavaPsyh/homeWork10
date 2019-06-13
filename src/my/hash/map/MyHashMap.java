@@ -13,7 +13,7 @@ public class MyHashMap<K, V> {
     private void arrayGrower() {
         Node<K, V>[] temp;
         Node<K, V> tempNode;
-        int newIndex;
+        int index;
         if (arrayOfNodes == null) {
             arrayOfNodes = (Node<K, V>[]) new Node[DEFAULT_CAPACITY];
             newLength = DEFAULT_CAPACITY;
@@ -22,15 +22,22 @@ public class MyHashMap<K, V> {
                 newLength = newLength << 1;
                 temp = (Node<K, V>[]) new Node[newLength];
                 for (int i = 0; i < arrayOfNodes.length; i++) {
-                    if (arrayOfNodes[i] == null) continue;
+                    if (arrayOfNodes[i] == null) {
+                        continue;
+                    }
                     if (arrayOfNodes[i].nextNode == null) {
-                        newIndex = newIndex(arrayOfNodes[i].key);
-                        temp[newIndex] = arrayOfNodes[i];
+                        index = newIndex(arrayOfNodes[i].key);
+                        if(temp[index] == null) {
+                            temp[index] = arrayOfNodes[i];
+                        }else{
+                            arrayOfNodes[i].nextNode = temp[index];
+                            temp[index] = arrayOfNodes[i];
+                        }
                     } else {
                         tempNode = arrayOfNodes[i];
                         while (tempNode.nextNode != null) {
-                            newIndex = newIndex(tempNode.key);
-                            temp[newIndex] = tempNode.nextNode;
+                            index = newIndex(tempNode.key);
+                            temp[index] = tempNode.nextNode;
                             tempNode = tempNode.nextNode;
                         }
                     }
@@ -82,11 +89,7 @@ public class MyHashMap<K, V> {
                 result = temp.value;
             } else {
                 while (temp.nextNode != null) {
-                    if (key == null && temp.key == null) {
-                        result = temp.value;
-                        break;
-                    }
-                    if (key.equals(temp.key)) {
+                    if (key == null && temp.key == null || key.equals(temp.key)) {
                         result = temp.value;
                         break;
                     }
@@ -105,7 +108,6 @@ public class MyHashMap<K, V> {
     public int size() {
         return size;
     }
-
 
     private static class Node<K, V> {
 
