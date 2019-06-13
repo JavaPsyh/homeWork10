@@ -56,11 +56,7 @@ public class MyHashMap<K, V> {
             arrayOfNodes[index] = newNode;
         } else {
             temp = arrayOfNodes[index];
-            if (key == null && temp.key == null){
-                temp.value = value;
-                return;
-            }
-            if (key.equals(temp.key)) {
+            if (key == null && temp.key == null || key.equals(temp.key)) {
                 temp.value = value;
                 return;
             }
@@ -94,10 +90,10 @@ public class MyHashMap<K, V> {
                         break;
                     }
                     temp = temp.nextNode;
-                    if (temp.nextNode == null) {
-                        if (key.equals(temp.key)) {
+                    if (temp.nextNode == null && key.equals(temp.key)) {
                             result = temp.value;
-                        }
+                    }else {
+                        System.out.println("Not values with key: " + key);
                     }
                 }
             }
