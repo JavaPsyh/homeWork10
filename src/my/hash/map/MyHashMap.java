@@ -27,9 +27,9 @@ public class MyHashMap<K, V> {
                     }
                     if (arrayOfNodes[i].nextNode == null) {
                         index = newIndex(arrayOfNodes[i].key);
-                        if(temp[index] == null) {
+                        if (temp[index] == null) {
                             temp[index] = arrayOfNodes[i];
-                        }else{
+                        } else {
                             arrayOfNodes[i].nextNode = temp[index];
                             temp[index] = arrayOfNodes[i];
                         }
@@ -91,8 +91,8 @@ public class MyHashMap<K, V> {
                     }
                     temp = temp.nextNode;
                     if (temp.nextNode == null && key.equals(temp.key)) {
-                            result = temp.value;
-                    }else {
+                        result = temp.value;
+                    } else {
                         System.out.println("Not values with key: " + key);
                     }
                 }
